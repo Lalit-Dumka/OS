@@ -5,25 +5,6 @@
 #include <fcntl.h> // for open system call
 #include <unistd.h> // for read and write system call
 
-
-// wrong implementation
-void main(int argc, char *argv[]){
-    FILE *fp;
-    char ch;
-    int sc = 0;
-    fp = fopen(argv[1], "r");
-    if(fp == NULL){
-        perror("Error in opening file");
-        return;
-    }
-    while(!feof(fp)){
-        ch = fgetc(fp);
-        if(ch == ' ') sc++;
-    }
-    printf("Number of spaces in file are %d", sc);
-    fclose(fp);
-}
-
 // correct implementation of cp command
 void main(int argc, char *argv[]){
     int fd1, fd2, n;

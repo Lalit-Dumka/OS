@@ -8,7 +8,7 @@ int main(){
     pid = fork();
     if(pid == -1){
         perror("Error in process creation");
-        return 0;
+        exit(1);
     }
     if(pid != 0){
         pid1 = getpid();

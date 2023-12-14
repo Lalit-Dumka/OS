@@ -5,7 +5,7 @@
 struct dirent *dptr;
 
 int main(int argc, char *argv[]){
-    char buff[100]
+    char buff[100];
     DIR *dp;
     printf("Enter directory name: ");
     scanf("%s", buff);
