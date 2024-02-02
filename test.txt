@@ -1,3 +1,45 @@
-Lalit. This is a random text. This is made for testing my programs. 
-Lalit. 
-The word Lalit is repeated 3 times.
+#include <stdio.h>
+#include <stdlib.h>
+
+#define PAGE_SIZE 4096
+#define NUM_PAGES 16
+
+typedef struct {
+    int frame_number;
+    int valid;
+} PageTableEntry;
+
+PageTableEntry page_table[NUM_PAGES];
+
+void initializePageTable() {
+    for (int i = 0; i < NUM_PAGES; ++i) {
+        page_table[i].valid = 0;
+    }
+}
+
+int getPageFrame(int page_number) {
+    if (page_number < 0 || page_number >= NUM_PAGES) {
+        fprintf(stderr, "Invalid page number\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (!page_table[page_number].valid) {
+        page_table[page_number].frame_number = rand() % NUM_PAGES;
+        page_table[page_number].valid = 1;
+        printf("Page %d loaded into frame %d\n", page_number, page_table[page_number].frame_number);
+    }
+
+    return page_table[page_number].frame_number;
+}
+
+int main() {
+    initializePageTable();
+
+    for (int i = 0; i < NUM_PAGES * 2; ++i) {
+        int page_number = rand() % NUM_PAGES;
+        int frame_number = getPageFrame(page_number);
+        printf("Accessing page %d from frame %d\n", page_number, frame_number);
+    }
+
+    return 0;
+}
